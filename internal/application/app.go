@@ -5,11 +5,9 @@ import (
 	"log"
 	"os"
 
-	// "gitlab.com/g6834/team26/task/internal/adapters/http"
+	"github.com/sotskov-do/auth-service/internal/adapters/http"
 	"github.com/sotskov-do/auth-service/internal/adapters/postgres"
 	"github.com/sotskov-do/auth-service/internal/domain/auth"
-
-	"github.com/sotskov-do/auth-service/internal/adapters/http"
 	"github.com/sotskov-do/auth-service/pkg/config"
 	"golang.org/x/sync/errgroup"
 )
@@ -32,7 +30,7 @@ func Start(ctx context.Context) {
 		os.Exit(1)
 	}
 
-	authService = auth.New(db)
+	authService = auth.New(db, c)
 
 	s, err = http.New(authService, c)
 	if err != nil {
